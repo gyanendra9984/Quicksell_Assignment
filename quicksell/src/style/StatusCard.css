@@ -1,0 +1,79 @@
+.ticket-card {
+    border: 1px solid #e4e5e7;
+    border-radius: 8px; /* Rounded corners */
+    padding: 8px 10px; /* Padding around the card content */
+    margin: 8px 0; /* Space between cards */
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+ /* Subtle shadow for depth */
+    background-color: #fff; /* Background color */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Column direction */
+    position: relative; /* Position relative for absolute children */
+    
+}
+
+.ticket-id {
+    color: gray; /* Dark color for text */
+    font-size: 10px; /* Adjusted font size */
+}
+
+.ticket-title {
+    font-size: 12px; /* Title font size */
+    margin: 7px 0; /* Spacing around the title */
+    margin-right: 15px; /* Larger right margin */
+    color: #000; /* Black text color for better visibility */
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
+    max-width: 100%; /* Ensure it takes available width within the card */
+}
+
+
+
+.ticket-footer {
+    display: flex; /* Flexbox for footer items */
+    justify-content: space-between; /* Space between tag and user */
+    align-items: center; /* Center vertically */
+    font-size: 10px; /* Adjusted font size */
+}
+
+.ticket-tag {
+    background-color: #FFFFFF; /* Light blue background for tag */
+    border: 1px solid #f4f4f4;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    border-radius: 4px; /* Rounded corners */
+    padding: 2px 4px; /* Padding around tag text */
+    color: gray; /* Text color */
+    font-size: 10px; /* Font size for tag */
+}
+
+.ticket-user {
+    color:white; /* Dark text color */
+    width: 15px; /* Set width for consistent size */
+    height: 15px; /* Set height for consistent size */
+    border-radius: 50%; /* Circle shape */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 7px; /* Adjusted font size for initials */
+    position: absolute; /* Position absolutely */
+    top: 10px; /* Distance from top */
+    right: 10px; /* Distance from right */
+}
+.thdot-icon {
+    margin-right: 8px;
+    border: 1px solid #f4f4f4;
+    border-radius: 4px;
+    vertical-align: middle; /* Ensures proper alignment with text */
+}
+.left-footer {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
