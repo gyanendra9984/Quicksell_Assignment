@@ -4,7 +4,7 @@ import { priorityIconMap } from "../iconmap";
 
 import './../style/GroupByStatus.css'; // Ensure this file exists and the styles are linked
 
-const GroupByStatus = ({ data }) => {
+const GroupByStatus = ({ data }, { ordering }) => {
     // Check if data is undefined or data.tickets is not provided
     if (!data || !data.tickets) {
         return <div>No tickets available</div>; // Provide a fallback UI if no data is available
@@ -12,7 +12,21 @@ const GroupByStatus = ({ data }) => {
 
     // Group tickets by status
     const statusMap = { "Backlog": [], "Todo": [], "In progress": [], "Done": [], "Cancel": [] };
-    for (const ticket of data.tickets) {
+    const sortTickets = (tickets) => {
+        if (ordering === "Title") {
+            return tickets.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (ordering === "Priority") {
+            return tickets.sort((a, b) => b.priority - a.priority); // Higher priority comes first
+        }
+        return tickets; // Default, no sorting
+    };
+
+    // Group tickets by priority after sorting
+    const sortedTickets = sortTickets(data.tickets);
+    // for (const ticket of sortedTickets) {
+    //     statusMap[Priorities[ticket.priority]].push(ticket);
+    // }
+    for (const ticket of sortedTickets) {
         statusMap[ticket.status].push(ticket);
     }
 

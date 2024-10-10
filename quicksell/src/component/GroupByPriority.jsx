@@ -3,16 +3,31 @@ import StatusCard from './StatusCard';
 import { priorityIconMap } from "../iconmap";
 import './../style/GroupByPriority.css'; // Ensure this file exists and the styles are linked
 
-const GroupByPriority = ({ data }) => {
+const GroupByPriority = ({ data },{ordering}) => {
     if (!data || !data.tickets) {
         return <div>No tickets available</div>; // Provide a fallback UI if no data is available
     }
 
     const Priorities = ["No priority", "Low", "Medium", "High", "Urgent"];
     const priorityMap = { "No priority": [], "Low": [], "Medium": [], "High": [], "Urgent": [] };
-    for (const ticket of data.tickets) {
+
+    const sortTickets = (tickets) => {
+        if (ordering === "Title") {
+            return tickets.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (ordering === "Priority") {
+            return tickets.sort((a, b) => b.priority - a.priority); // Higher priority comes first
+        } 
+        return tickets; // Default, no sorting
+    };
+
+    // Group tickets by priority after sorting
+    const sortedTickets = sortTickets(data.tickets);
+    for (const ticket of sortedTickets) {
         priorityMap[Priorities[ticket.priority]].push(ticket);
     }
+    // for (const ticket of data.tickets) {
+    //     priorityMap[Priorities[ticket.priority]].push(ticket);
+    // }
     const PlusIcon = priorityIconMap["Plus"];
     const ThIcon = priorityIconMap["3dot"];
 

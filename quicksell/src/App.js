@@ -39,15 +39,16 @@ function App() {
   }, []);
 
 
-
-  
-
   return (
     <div style={{ fontFamily: "sans-serif" }}>
       <Header setGrouping={setGrouping} setOrdering={setOrdering} />
-      {grouping === "Status" && <GroupByStatus data={data} />}
-      {grouping === "User" && <GroupByUser data={data} />}
-      {grouping === "Priority" && <GroupByPriority data={data} />}
+      {grouping === "Status" && (
+        <GroupByStatus data={data} ordering={ordering} />
+      )}
+      {grouping === "User" && <GroupByUser data={data} ordering={ordering} />}
+      {grouping === "Priority" && (
+        <GroupByPriority data={data} ordering={ordering} />
+      )}
     </div>
   );
 }

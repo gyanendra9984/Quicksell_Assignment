@@ -4,12 +4,24 @@ import { priorityIconMap } from "../iconmap";
 
 import './../style/GroupByUser.css'; // Ensure this file exists and the styles are linked
 
-const GroupByUser = ({ data }) => {
+const GroupByUser = ({ data }, { ordering }) => {
     if (!data || !data.tickets) {
         return <div>No tickets available</div>; // Provide a fallback UI if no data is available
     }
     // Group tickets by userId
-    const groupedTickets = data.tickets.reduce((acc, ticket) => {
+    const sortTickets = (tickets) => {
+        if (ordering === "Title") {
+            return tickets.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (ordering === "Priority") {
+            return tickets.sort((a, b) => b.priority - a.priority); // Higher priority comes first
+        }
+        return tickets; // Default, no sorting
+    };
+
+    // Group tickets by priority after sorting
+    const sortedTickets = sortTickets(data.tickets);
+    
+    const groupedTickets = sortedTickets.reduce((acc, ticket) => {
         acc[ticket.userId] = acc[ticket.userId] || [];
         acc[ticket.userId].push(ticket);
         return acc;
