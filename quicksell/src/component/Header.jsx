@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './../style/Header.css';
+import './../index.css'; 
+
 import { ReactComponent as DownIcon } from "./../icons_FEtask/down.svg"
 import { ReactComponent as DisplayIcon } from "./../icons_FEtask/Display.svg"
 

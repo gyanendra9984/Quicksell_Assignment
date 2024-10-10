@@ -1,24 +1,21 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import { priorityIconMap } from "../iconmap";
+import './../index.css'; 
 
-import './../style/GroupByUser.css'; // Ensure this file exists and the styles are linked
-
-const GroupByUser = ({ data }, { ordering }) => {
+const GroupByUser = ({ data ,ordering }) => {
     if (!data || !data.tickets) {
-        return <div>No tickets available</div>; // Provide a fallback UI if no data is available
+        return <div>No tickets available</div>; 
     }
-    // Group tickets by userId
     const sortTickets = (tickets) => {
         if (ordering === "Title") {
             return tickets.sort((a, b) => a.title.localeCompare(b.title));
         } else if (ordering === "Priority") {
-            return tickets.sort((a, b) => b.priority - a.priority); // Higher priority comes first
+            return tickets.sort((a, b) => b.priority - a.priority); 
         }
-        return tickets; // Default, no sorting
+        return tickets; 
     };
 
-    // Group tickets by priority after sorting
     const sortedTickets = sortTickets(data.tickets);
     
     const groupedTickets = sortedTickets.reduce((acc, ticket) => {
@@ -42,26 +39,26 @@ const GroupByUser = ({ data }, { ordering }) => {
     return (
         <div className="ticket-board">
             {Object.keys(groupedTickets).map((userId) => {
-                const user = data.users.find(user => user.id === userId); // Get user info
-                const ticketCount = groupedTickets[userId].length; // Count of tickets for the current user
+                const user = data.users.find(user => user.id === userId); 
+                const ticketCount = groupedTickets[userId].length; 
 
                 return (
                     <div key={userId} className="ticket-column">
                         <div className="ticket-header">
                             <div className="left-content">
-                                <span className="user-icon" style={{ backgroundColor: getRandomColor() }}>
+                                <span className="user-icon" style={{ backgroundColor: getRandomColor()}}>
                                     {userId.split(' ').map(name => name[0]).join('').toUpperCase().slice(0, 2)}
                                 </span>
-                                <span className="user-title">{user.name}</span> {/* User name */}
-                                <span className="ticket-count">{ticketCount}</span> {/* Count of tickets */}
+                                <span className="user-title">{user.name}</span> 
+                                <span className="ticket-count">{ticketCount}</span> 
                             </div>
                             <div className="right-content">
-                                <PlusIcon className="add-icon" /> {/* Plus icon */}
-                                <ThIcon className="circle-icon" /> {/* Three-dot icon */}
+                                <PlusIcon className="add-icon" /> 
+                                <ThIcon className="circle-icon" /> 
                             </div>
                         </div>
                         {groupedTickets[userId].map((ticket) => (
-                            <StatusCard key={ticket.id} ticket={ticket} users={data.users} />
+                            <StatusCard key={ticket.id} ticket={ticket} users={data.users}  />
                         ))}
                     </div>
                 );

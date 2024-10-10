@@ -1,7 +1,5 @@
-// import GroupByUser from "./component/GroupByUser";
 import { useEffect, useState } from "react";
 import GroupByStatus from "./component/GroupByStatus";
-// import GroupByPriority from "./component/GroupByPriority";
 import Header from "./component/Header";
 import GroupByPriority from "./component/GroupByPriority";
 import GroupByUser from "./component/GroupByUser";
@@ -17,7 +15,6 @@ function App() {
     setGrouping(storedGrouping);
     setOrdering(storedOrdering);
   }, []);
-  
 
   useEffect(() => {
     async function fetchData() {
@@ -45,9 +42,11 @@ function App() {
       {grouping === "Status" && (
         <GroupByStatus data={data} ordering={ordering} />
       )}
-      {grouping === "User" && <GroupByUser data={data} ordering={ordering} />}
+      {grouping === "User" && (
+        <GroupByUser data={data} ordering={ordering} />
+      )}
       {grouping === "Priority" && (
-        <GroupByPriority data={data} ordering={ordering} />
+        <GroupByPriority data={data} ordering={ordering}  />
       )}
     </div>
   );

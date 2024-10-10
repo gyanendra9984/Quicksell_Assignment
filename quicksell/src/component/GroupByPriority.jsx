@@ -1,33 +1,29 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import { priorityIconMap } from "../iconmap";
-import './../style/GroupByPriority.css'; // Ensure this file exists and the styles are linked
+import './../index.css';
 
-const GroupByPriority = ({ data },{ordering}) => {
+const GroupByPriority = ({ data, ordering }) => {
     if (!data || !data.tickets) {
-        return <div>No tickets available</div>; // Provide a fallback UI if no data is available
+        return <div>No tickets available</div>;
     }
 
     const Priorities = ["No priority", "Low", "Medium", "High", "Urgent"];
-    const priorityMap = { "No priority": [], "Low": [], "Medium": [], "High": [], "Urgent": [] };
+    const priorityMap = { 0: [], 1: [], 2: [], 3: [], 4: [] };
 
     const sortTickets = (tickets) => {
         if (ordering === "Title") {
             return tickets.sort((a, b) => a.title.localeCompare(b.title));
         } else if (ordering === "Priority") {
-            return tickets.sort((a, b) => b.priority - a.priority); // Higher priority comes first
-        } 
-        return tickets; // Default, no sorting
+            return tickets.sort((a, b) => b.priority - a.priority);
+        }
+        return tickets;
     };
 
-    // Group tickets by priority after sorting
     const sortedTickets = sortTickets(data.tickets);
     for (const ticket of sortedTickets) {
-        priorityMap[Priorities[ticket.priority]].push(ticket);
+        priorityMap[ticket.priority].push(ticket);
     }
-    // for (const ticket of data.tickets) {
-    //     priorityMap[Priorities[ticket.priority]].push(ticket);
-    // }
     const PlusIcon = priorityIconMap["Plus"];
     const ThIcon = priorityIconMap["3dot"];
 
@@ -35,22 +31,21 @@ const GroupByPriority = ({ data },{ordering}) => {
     return (
         <div className="ticket-board">
             {Object.keys(priorityMap).map((priority) => {
-                const ticketCount = priorityMap[priority].length; // Count of tickets in the current priority group
+                const ticketCount = priorityMap[priority].length;
 
-                // Get the appropriate icon for the priority
                 const PriorityIcon = priorityIconMap[priority];
 
                 return (
                     <div key={priority} className="ticket-column">
                         <div className="ticket-header">
                             <div className="left-content">
-                                {PriorityIcon && <PriorityIcon className="priority-icon" />} {/* Priority icon */}
-                                <span className="priority-title">{Priorities[priority]}</span> {/* Priority label */}
-                                <span className="ticket-count">{ticketCount}</span> {/* Count of tickets */}
+                                {PriorityIcon && <PriorityIcon className="priority-icon" />}
+                                <span className="priority-title">{Priorities[priority]}</span>
+                                <span className="ticket-count">{ticketCount}</span>
                             </div>
                             <div className="right-content">
-                                <PlusIcon className="add-icon" /> {/* Plus icon */}
-                                <ThIcon className="circle-icon" /> {/* Three-dot icon */}
+                                <PlusIcon className="add-icon" />
+                                <ThIcon className="circle-icon" />
                             </div>
                         </div>
                         {priorityMap[priority].map((ticket) => (
